@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ToDoApp.Frontend
-        run: npm ci
+        run: npm i
 
       - name: Build frontend
         working-directory: ToDoApp.Frontend
