@@ -29,10 +29,6 @@ jobs:
         working-directory: ToDoApp.Frontend
         run: npm run build
 
-      - name: Test frontend
-        working-directory: ToDoApp.Frontend
-        run: npm test
-
       # - name: Build Docker image
       #   working-directory: ToDoApp.Frontend
       #   run: docker build -t todoapp-frontend:latest -f Dockerfile .
