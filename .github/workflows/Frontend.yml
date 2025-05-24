@@ -10,7 +10,7 @@ on:
       - "ToDoApp.Frontend/**"
 
 jobs:
-  backend:
+  frontend:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
