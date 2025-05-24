@@ -1,0 +1,38 @@
+name: Backend
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ToDoApp.Backend/**"
+  pull_request:
+    branches: [main]
+    paths:
+      - "ToDoApp.Backend/**"
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore dependencies
+        working-directory: ToDoApp.Backend
+        run: dotnet restore ToDoApp.Backend.csproj
+
+      - name: Build
+        working-directory: ToDoApp.Backend
+        run: dotnet build --no-restore ToDoApp.Backend.csproj
+
+      - name: Test
+        working-directory: ToDoApp.Backend
+        run: dotnet test --no-build ToDoApp.Backend.csproj
+
+      # - name: Build Docker image
+      #   working-directory: ToDoApp.Backend
+      #   run: docker build -t todoapp-backend:latest -f Dockerfile .
