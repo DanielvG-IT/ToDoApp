@@ -10,19 +10,19 @@ import type { Todo } from "../api/todos";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
-export const PriorityLevel = {
+const PriorityLevel = {
   Low: "Low",
   Normal: "Normal",
   High: "High",
 } as const;
-type PriorityLevel = (typeof PriorityLevel)[keyof typeof PriorityLevel];
+type PriorityLevelType = (typeof PriorityLevel)[keyof typeof PriorityLevel];
 
-export const TodoPage = () => {
+const TodoPage = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newDueDate, setNewDueDate] = useState<string>("");
-  const [newPriority, setNewPriority] = useState<PriorityLevel>(
+  const [newPriority, setNewPriority] = useState<PriorityLevelType>(
     PriorityLevel.Normal
   );
 
@@ -73,7 +73,7 @@ export const TodoPage = () => {
         <select
           className="border rounded px-2 py-1"
           value={newPriority}
-          onChange={(e) => setNewPriority(e.target.value as PriorityLevel)}>
+          onChange={(e) => setNewPriority(e.target.value as PriorityLevelType)}>
           <option value={PriorityLevel.Low}>Low</option>
           <option value={PriorityLevel.Normal}>Normal</option>
           <option value={PriorityLevel.High}>High</option>
@@ -126,3 +126,5 @@ export const TodoPage = () => {
     </div>
   );
 };
+
+export default TodoPage;

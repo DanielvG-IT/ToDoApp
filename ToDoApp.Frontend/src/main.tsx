@@ -1,12 +1,12 @@
+import "@/index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import TodoPage from "./pages/TodoPage";
+import { UserPage } from "@/pages/UserPage";
+import { AuthPage } from "@/pages/AuthPage";
 import { AuthProvider } from "./context/AuthContext";
-import { ProtectedRoute } from "./routes/ProtectedRoute";
-import { AuthPage } from "./pages/AuthPage";
-import { TodoPage } from "./pages/TodoPage";
-import { UserPage } from "./pages/UserPage";
-import "@/index.css";
+import { ProtectedRoute } from "@/routes/ProtectedRoute";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
