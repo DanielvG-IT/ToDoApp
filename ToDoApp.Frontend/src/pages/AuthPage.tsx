@@ -29,7 +29,7 @@ export const AuthPage = () => {
       <form onSubmit={onSubmit} className="space-y-4">
         {isRegister && (
           <Input
-            placeholder="username"
+            placeholder="Username"
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
           />
@@ -48,21 +48,24 @@ export const AuthPage = () => {
         />
         {isRegister && (
           <Input
-            placeholder="Number"
+            placeholder="Phone number"
             type="tel"
             value={form.number}
             onChange={(e) => setForm({ ...form, number: e.target.value })}
           />
         )}
-        <Button type="submit" className="w-full">
+        <Button
+          type="submit"
+          className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold py-2 rounded-lg shadow-md hover:from-blue-600 hover:to-purple-600 transition-colors duration-200">
           {isRegister ? "Sign Up" : "Sign In"}
         </Button>
       </form>
       <p className="mt-4 text-center">
         {isRegister ? "Already have an account? " : "Don't have an account? "}
         <button
+          type="button"
           onClick={() => setIsRegister(!isRegister)}
-          className="text-blue-500 underline">
+          className="ml-2 px-3 py-1 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 text-white font-medium shadow hover:from-purple-500 hover:to-blue-500 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300">
           {isRegister ? "Login" : "Register"}
         </button>
       </p>
