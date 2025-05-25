@@ -4,7 +4,7 @@ const API_BASE = import.meta.env.VITE_API_URL;
 export const http = axios.create({ baseURL: API_BASE });
 
 http.interceptors.request.use((config) => {
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem("token");
   if (token && config.headers) {
     config.headers.Authorization = `Bearer ${token}`;
   }
@@ -22,7 +22,7 @@ export interface RegisterDto {
   phoneNumber: string;
 }
 export interface AuthResponse {
-  accessToken: string;
+  token: string;
   // refreshToken: string;
   // user: { id: string; username: string; email: string };
 }
@@ -36,7 +36,7 @@ export const register = (data: RegisterDto) => {
 };
 
 // export const refreshToken = () =>
-//   http.post<{ accessToken: string }>("/auth/refresh", {
+//   http.post<{ token: string }>("/auth/refresh", {
 //     token: localStorage.getItem("refreshToken"),
 //   });
 
@@ -48,8 +48,8 @@ export const register = (data: RegisterDto) => {
 //     if (status === 401) {
 //       try {
 //         const { data } = await refreshToken();
-//         localStorage.setItem('accessToken', data.accessToken);
-//         err.config.headers.Authorization = `Bearer ${data.accessToken}`;
+//         localStorage.setItem('token', data.token);
+//         err.config.headers.Authorization = `Bearer ${data.token}`;
 //         return axios(err.config);
 //       } catch {
 //         // force logout

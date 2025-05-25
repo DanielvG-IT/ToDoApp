@@ -76,8 +76,8 @@ namespace ToDoApp.Backend.Controllers
             if (!passwordMatch)
                 return Unauthorized();
 
-            var accessToken = GenerateJwt(user);
-            return Ok(new { accessToken });
+            var token = GenerateJwt(user);
+            return Ok(new { token });
         }
 
         private string GenerateJwt(AppUser user)

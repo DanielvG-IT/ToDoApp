@@ -1,9 +1,9 @@
 import { createContext } from "react";
-import type { AuthResponse } from "@/api/auth";
+// import type { AuthResponse } from "@/api/auth";
 
 interface AuthContextType {
-  user: AuthResponse["user"] | null;
-  loading: boolean;
+  // user: AuthResponse["user"] | null;
+  // loading: boolean;
   login: (email: string, pw: string) => Promise<void>;
   register: (
     username: string,
