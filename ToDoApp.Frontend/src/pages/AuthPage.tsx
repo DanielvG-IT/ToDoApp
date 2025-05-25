@@ -5,8 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const AuthPage = () => {
-  const { login, register } = useAuth();
   const [isRegister, setIsRegister] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const { login, register } = useAuth();
   const [form, setForm] = useState({
     username: "",
     email: "",
@@ -17,9 +19,35 @@ export const AuthPage = () => {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isRegister) {
-      await register(form.username, form.email, form.password, form.number);
+      try {
+        await register(form.username, form.email, form.password, form.number);
+        setSuccess("Registration successful! You can now log in.");
+        setTimeout(() => {
+          setSuccess("");
+          setIsRegister(false);
+        }, 2000);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message || "Registration failed.");
+        } else {
+          setError("Registration failed.");
+        }
+      }
     } else {
-      await login(form.email, form.password);
+      try {
+        await login(form.email, form.password);
+        setSuccess("Login successful!");
+        setTimeout(() => {
+          setSuccess("");
+          window.location.href = "/todo";
+        }, 2000);
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(err.message || "Registration failed.");
+        } else {
+          setError("Registration failed.");
+        }
+      }
     }
   };
 
@@ -53,6 +81,20 @@ export const AuthPage = () => {
             value={form.number}
             onChange={(e) => setForm({ ...form, number: e.target.value })}
           />
+        )}
+        {error && (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
+            role="alert">
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
+        {success && (
+          <div
+            className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded relative"
+            role="alert">
+            <span className="block sm:inline">{success}</span>
+          </div>
         )}
         <Button
           type="submit"
