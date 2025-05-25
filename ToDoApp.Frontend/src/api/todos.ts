@@ -26,7 +26,9 @@ export const fetchTodo = (id: UUID) => http.get<Todo[]>(`/ToDo/${id}`);
 
 export const createTodo = (dto: CreateTodoDto) => http.post<Todo>("/ToDo", dto);
 
-// export const updateTodo = (id: string, updates: Partial<Todo>) =>
-//   http.put<Todo>(`/ToDo/${id}`, updates);
+export const updateTodo = (id: UUID, dto: Partial<Todo>) =>
+  http.put<Partial<Todo>>(`/Todo/${id}`, dto);
 
 export const deleteTodo = (id: UUID) => http.delete(`/ToDo/${id}`);
+
+export const markTodoCompleted = (id: string) => http.put(`/ToDo/${id}`);

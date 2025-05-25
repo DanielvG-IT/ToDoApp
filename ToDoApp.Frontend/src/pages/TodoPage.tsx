@@ -7,6 +7,7 @@ import {
   createTodo,
   // updateTodo,
   deleteTodo,
+  markTodoCompleted,
 } from "@/api/todos";
 
 const PriorityLevel = {
@@ -86,14 +87,12 @@ const TodoPage = () => {
               <input
                 type="checkbox"
                 checked={todo.isCompleted}
-                // onChange={async () => {
-                //   const { data } = await updateTodo(todo.id, {
-                //     completed: !todo.completed,
-                //   });
-                //   setTodos((ts) =>
-                //     ts.map((t) => (t.id === data.id ? data : t))
-                //   );
-                // }}
+                onChange={async () => {
+                  const { data } = await markTodoCompleted(todo.id);
+                  setTodos((ts) =>
+                    ts.map((t) => (t.id === data.id ? data : t))
+                  );
+                }}
               />
               <span className={todo.isCompleted ? "line-through" : ""}>
                 {todo.title}
