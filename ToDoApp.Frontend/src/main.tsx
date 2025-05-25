@@ -2,7 +2,6 @@ import "@/index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import TodoPage from "./pages/TodoPage";
-import { UserPage } from "@/pages/UserPage";
 import { AuthPage } from "@/pages/AuthPage";
 import { AuthProvider } from "./context/AuthContext";
 import { ProtectedRoute } from "@/routes/ProtectedRoute";
@@ -19,14 +18,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             element={
               <ProtectedRoute>
                 <TodoPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/user"
-            element={
-              <ProtectedRoute>
-                <UserPage />
               </ProtectedRoute>
             }
           />
