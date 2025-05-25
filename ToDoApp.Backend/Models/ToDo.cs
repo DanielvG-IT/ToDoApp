@@ -5,7 +5,7 @@ namespace ToDoApp.Backend.Models
     public class ToDo
     {
         [Key]
-        public Guid Id;
+        public Guid Id { get; set; }
 
         [Required]
         public string Title { get; set; } = string.Empty;

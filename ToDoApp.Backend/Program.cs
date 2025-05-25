@@ -2,6 +2,7 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using ToDoApp.Backend.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var jwtKey = builder.Configuration["Jwt:Key"];
@@ -10,9 +11,10 @@ if (string.IsNullOrEmpty(jwtKey))
     throw new InvalidOperationException("JWT key is missing from configuration.");
 
 var key = Encoding.UTF8.GetBytes(jwtKey);
+var ConnStr = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddOpenApi();
-builder.Services.AddDbContext<ToDoContext>();
+builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(ConnStr));
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
