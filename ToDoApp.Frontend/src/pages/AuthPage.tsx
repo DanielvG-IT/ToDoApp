@@ -1,6 +1,7 @@
 // src/pages/AuthPage.tsx
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -8,6 +9,7 @@ export const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const { login, register } = useAuth();
   const [form, setForm] = useState({
     username: "",
@@ -39,7 +41,7 @@ export const AuthPage = () => {
         setSuccess("Login successful!");
         setTimeout(() => {
           setSuccess("");
-          window.location.href = "/todo";
+          setRedirect(true);
         }, 2000);
       } catch (err: unknown) {
         if (err instanceof Error) {
@@ -50,6 +52,9 @@ export const AuthPage = () => {
       }
     }
   };
+  if (redirect) {
+    return <Navigate to="/todos" replace />;
+  }
 
   return (
     <div className="max-w-md mx-auto mt-20">
