@@ -1,14 +1,13 @@
-// src/pages/TodoPage.tsx
 import { useEffect, useState } from "react";
+import type { Todo } from "@/api/todos";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   fetchTodos,
   createTodo,
   // updateTodo,
   deleteTodo,
 } from "@/api/todos";
-import type { Todo } from "../api/todos";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 const PriorityLevel = {
   Low: "Low",

@@ -1,10 +1,16 @@
-import { type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { login, register } from "@/api/auth";
 import { AuthContext } from "@/context/AuthContextObject";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // const [user, setUser] = useState<AuthContextType["user"]>(null);
   // const [loading, setLoading] = useState(true);
+
+  const [token, setTokenState] = useState("");
+  const setToken = (newToken: string) => {
+    setTokenState(newToken);
+    localStorage.setItem("token", newToken);
+  };
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -17,7 +23,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const doLogin = async (email: string, pw: string) => {
     const { data } = await login({ email, password: pw });
-    localStorage.setItem("token", data.token);
+    setToken(data.token);
+
     // localStorage.setItem("refreshToken", data.refreshToken);
     // localStorage.setItem("user", JSON.stringify(data.user));
     // setUser(data.user);
@@ -45,7 +52,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ login: doLogin, register: doRegister, logout }}>
+      value={{
+        token,
+        login: doLogin,
+        register: doRegister,
+        logout,
+      }}>
       {children}
     </AuthContext.Provider>
   );

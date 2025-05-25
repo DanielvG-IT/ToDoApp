@@ -1,13 +1,12 @@
-// src/pages/UserPage.tsx
 import { useState } from "react";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import axios from "axios";
 
 export const UserPage = () => {
   const { user, logout } = useAuth();
-  const [username, setName] = useState(user?.username || "");
+  const [username, setUsername] = useState(user?.username || "");
   const [saving, setSaving] = useState(false);
 
   const save = async () => {
@@ -30,7 +29,7 @@ export const UserPage = () => {
       </div>
       <div>
         <label className="block text-sm">Name</label>
-        <Input value={username} onChange={(e) => setName(e.target.value)} />
+        <Input value={username} onChange={(e) => setUsername(e.target.value)} />
       </div>
       <div className="flex space-x-2">
         <Button onClick={save} disabled={saving}>
