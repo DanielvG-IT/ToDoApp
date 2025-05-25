@@ -17,7 +17,10 @@ var ConnStr = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // 0. Add default parts
 builder.Services.AddOpenApi();
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(opts =>
+  {
+      opts.SerializerSettings.Converters.Add(new Newtonsoft.Json.Converters.StringEnumConverter());
+  });
 
 // 1. Register your EF Core DbContext
 builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(ConnStr));

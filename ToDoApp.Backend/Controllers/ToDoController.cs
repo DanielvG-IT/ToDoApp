@@ -16,7 +16,7 @@ namespace ToDoApp.Backend.Controllers
         private readonly ToDoContext _context = toDoContext;
 
         [HttpPost]
-        public async Task<IActionResult> CreateToDo(CreateTodoDto dto)
+        public async Task<IActionResult> CreateToDo([FromBody] CreateTodoDto dto)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (string.IsNullOrEmpty(userId))
