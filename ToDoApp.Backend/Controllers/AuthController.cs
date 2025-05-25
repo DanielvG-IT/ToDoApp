@@ -65,39 +65,27 @@ namespace ToDoApp.Backend.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
-            if (string.IsNullOrEmpty(dto.Email))
-            {
-
-            }
-
-            if (string.IsNullOrEmpty(dto.Password))
-            {
-
-            }
+            if (string.IsNullOrEmpty(dto.Email) || string.IsNullOrEmpty(dto.Password))
+                return BadRequest();
 
             var user = await _userManager.FindByEmailAsync(dto.Email);
             if (user is null)
-            {
                 return Unauthorized();
-            }
 
             var passwordMatch = await _userManager.CheckPasswordAsync(user, dto.Password);
             if (!passwordMatch)
-            {
                 return Unauthorized();
-            }
 
-            var token = GenerateJwt(user);
-            return Ok(new { token });
+            var accessToken = GenerateJwt(user);
+            return Ok(new { accessToken });
         }
 
         private string GenerateJwt(AppUser user)
         {
             var jwtKey = _configuration["Jwt:Key"];
             if (string.IsNullOrEmpty(jwtKey))
-            {
                 throw new InvalidOperationException("JWT key is not configured.");
-            }
+
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
