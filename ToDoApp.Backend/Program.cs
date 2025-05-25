@@ -15,6 +15,7 @@ var ConnStr = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<ToDoContext>(options => options.UseSqlServer(ConnStr));
+builder.Services.AddControllers();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -28,6 +29,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
 });
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
