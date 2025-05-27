@@ -24,7 +24,6 @@ export interface RegisterDto {
 export interface AuthResponse {
   token: string;
   // refreshToken: string;
-  // user: { id: string; username: string; email: string };
 }
 
 export const login = (data: LoginDto) => {

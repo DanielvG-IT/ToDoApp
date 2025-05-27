@@ -1,29 +1,22 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using ToDoApp.Backend.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 
 namespace ToDoApp.Backend.Controllers
 {
   [ApiController]
   [Route("api/v1/[controller]")]
-  public class UsersController(UserManager<AppUser> userManager, IConfiguration configuration) : ControllerBase
+  public class UsersController(UserManager<AppUser> userManager) : ControllerBase
   {
     private readonly UserManager<AppUser> _userManager = userManager;
-    private readonly IConfiguration _configuration = configuration;
 
-    [HttpGet("{id}")]
-    public async Task<IActionResult> GetUser(Guid id)
+    [HttpGet]
+    public async Task<IActionResult> GetUser()
     {
       var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
       if (userId is null)
         return Unauthorized();
-
-      if (userId != id.ToString())
-        return Forbid();
 
       var user = await _userManager.FindByIdAsync(userId);
       if (user is null)

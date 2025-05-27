@@ -4,8 +4,6 @@ import { createContext } from "react";
 
 interface AuthContextType {
   token: AuthResponse["token"];
-  // user: AuthResponse["user"] | null;
-  // loading: boolean;
   login: (email: string, pw: string) => Promise<void>;
   register: (
     username: string,

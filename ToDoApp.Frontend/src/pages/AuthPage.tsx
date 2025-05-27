@@ -1,4 +1,3 @@
-// src/pages/AuthPage.tsx
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { Navigate } from "react-router-dom";
